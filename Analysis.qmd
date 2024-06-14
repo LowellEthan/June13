@@ -10,11 +10,13 @@ execute:
 ```{r}
 #| message: FALSE
 library(tidyverse)
+library(plotly)
 ```
 
 ```{r}
 #| message: FALSE
-read_csv("data/mass-tracts.csv") |> drop_na() |> ggplot(aes(x = med_income, fill = race)) +
+plot <-
+  read_csv("data/mass-tracts.csv") |> drop_na() |> ggplot(aes(x = med_income, fill = race)) +
   geom_density(alpha = 0.5, bw = 25000) + 
   labs(title = "Median Income for Massachusetts Census Tracts",
        subtitle = "The richest tracts are White",
@@ -29,5 +31,8 @@ read_csv("data/mass-tracts.csv") |> drop_na() |> ggplot(aes(x = med_income, fill
     axis.ticks.y = element_blank(),
     aspect.ratio = 0.4
   )
-```
 
+plotly_plot <- ggplotly(plot)
+
+plotly_plot
+```
